@@ -23,6 +23,29 @@ window.geometry("400x400+400+200")
 theFrame = Frame(window)
 theFrame.pack(fill=BOTH, expand=True)
 
+# Drop down menus
+theMenu = Menu(window)
+window.config(menu=theMenu)
+
+firstDropDown = Menu(theMenu, tearoff=0)
+theMenu.add_cascade(label="File", menu=firstDropDown)
+firstDropDown.add_command(label="Open")
+firstDropDown.add_command(label="Save")
+firstDropDown.add_command(label="Save as...")
+firstDropDown.add_separator()
+firstDropDown.add_command(label="Exit")
+
+secondDropDown = Menu(theMenu, tearoff=0)
+theMenu.add_cascade(label="Edit", menu=secondDropDown)
+secondDropDown.add_command(label="Copy")
+secondDropDown.add_command(label="Paste")
+secondDropDown.add_command(label="Clear")
+
+thirdDropDown = Menu(theMenu, tearoff=0)
+theMenu.add_cascade(label="Help", menu=thirdDropDown)
+thirdDropDown.add_command(label="Help")
+thirdDropDown.add_command(label="About")
+
 # Numbers field
 theNumbers = StringVar()
 theNumbers.set(0)
