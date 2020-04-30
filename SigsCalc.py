@@ -26,6 +26,44 @@ class ButtonsClass:
             theNumbers.set(new_number)
 
 
+# Child class for functional buttons
+class FuncionalClass(ButtonsClass):
+    def button_pressed(self):
+        if theNumbers.get() == "0":
+            print("Nothing to calculate.")
+        elif theMemorizedNumbers.get() == "0":
+            theMemorizedNumbers.set(theNumbers.get() + self.xxx)
+            theNumbers.set(0)
+            print(theMemorizedNumbers.get())
+        else:
+            theMemorizedNumbers.set(theMemorizedNumbers.get() + theNumbers.get() + self.xxx)
+            theNumbers.set(0)
+            print(theMemorizedNumbers.get())
+
+# Child class for dot button
+class DotClass(ButtonsClass):
+    def button_pressed(self):
+        if "." in theNumbers.get():
+            print("Just one dot is enough.")
+        else:
+            theNumbers.set(theNumbers.get() + self.xxx)
+
+
+# Child class for equals button (equation shows up as false error)
+class EquationClass(ButtonsClass):
+    def button_pressed(self):
+        if theNumbers.get() == "0":
+            print("Nothing to calculate.")
+        elif theMemorizedNumbers.get() == "0":
+            print("Nothing to calculate.")
+        else:
+            print(theMemorizedNumbers.get() + theNumbers.get())
+            exec("equation = " + theMemorizedNumbers.get() + theNumbers.get(), globals())
+            print(equation)
+            theNumbers.set(equation)
+            theMemorizedNumbers.set(0)
+
+
 # GUI and it's setting
 window = Tk()
 window.configure(background="black")
@@ -37,7 +75,9 @@ theFrame.pack(fill=BOTH, expand=True)
 
 # Numbers field
 theNumbers = StringVar()
+theMemorizedNumbers = StringVar()
 theNumbers.set(0)
+theMemorizedNumbers.set(0)
 theField = Label(theFrame, textvariable=theNumbers, anchor="e", font="Helvetica 56", bg="black", fg="orange")
 theField.grid(row=0, column=0, columnspan=4, sticky="nsew")
 
@@ -90,6 +130,15 @@ f = ButtonsClass(theFrame, 2, 2, "6")
 g = ButtonsClass(theFrame, 3, 0, "7")
 h = ButtonsClass(theFrame, 3, 1, "8")
 i = ButtonsClass(theFrame, 3, 2, "9")
+j = ButtonsClass(theFrame, 4, 1, "0")
+
+# Function buttons - equation buttons
+k = FuncionalClass(theFrame, 1, 3, "+")
+ll = FuncionalClass(theFrame, 2, 3, "-")
+m = FuncionalClass(theFrame, 3, 3, "*")
+n = FuncionalClass(theFrame, 4, 3, "//")
+o = EquationClass(theFrame, 4, 2, "=")
+p = DotClass(theFrame, 4, 0, ".")
 
 # Keeps the program running
 window.mainloop()
