@@ -1,3 +1,4 @@
+import os
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
@@ -101,9 +102,8 @@ def raze_it_to_the_ground():
     theNumbers.set(0)
 
 
-# ----- FOR NOW OPENS IN MAINDISK:/ -----
 def ddm_open():
-    text_file_directory = filedialog.Open(initialdir=r"/", filetypes=(("TXT Files", "*txt"), ("ALL files", "*")))
+    text_file_directory = filedialog.Open(initialdir=os.getcwd(), filetypes=(("TXT Files", "*txt"), ("ALL files", "*")))
     with open(text_file_directory.show(), "r") as hh:
         text = hh.read()
         raze_it_to_the_ground()
@@ -111,18 +111,20 @@ def ddm_open():
         hh.close()
 
 
-# ----- FOR NOW OPENS IN MAINDISK:/ -----
 def ddm_save_as():
     if theNumbers.get() != "0":
-        new_text_file_directory = filedialog.asksaveasfilename(initialdir=r"/", filetypes=(("TEXT Files", "*txt"),
-                                                                                           ("ALLFiles", "*")),
+        new_text_file_directory = filedialog.asksaveasfilename(initialdir=os.getcwd(),
+                                                               filetypes=(("TEXT Files", "*txt"),
+                                                                          ("ALLFiles", "*")),
                                                                defaultextension=".txt")
         with open(new_text_file_directory, "w") as kk:
             kk.write(theNumbers.get())
             kk.close()
 
+
 def ddm_help():
     messagebox.showinfo("Help", "This is a help tab.")
+
 
 def ddm_about():
     messagebox.showinfo("About", "Created by Zygmunt Mocek.")
