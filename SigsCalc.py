@@ -1,7 +1,7 @@
 from tkinter import *
+from tkinter import filedialog
+from tkinter import messagebox
 
-
-# from tkinter import filedialog
 
 # Parent Class for all the buttons
 class ButtonsClass:
@@ -27,6 +27,7 @@ class ButtonsClass:
 
 
 # Child class for functional buttons
+# ----- / ALWAYS RESULTS IN A FLOATING NUMBER -----
 class FuncionalClass(ButtonsClass):
     def button_pressed(self):
         if theNumbers.get() == "0":
@@ -40,6 +41,7 @@ class FuncionalClass(ButtonsClass):
             theNumbers.set(0)
             print(theMemorizedNumbers.get())
 
+
 # Child class for dot button
 class DotClass(ButtonsClass):
     def button_pressed(self):
@@ -50,6 +52,8 @@ class DotClass(ButtonsClass):
 
 
 # Child class for equals button (equation shows up as false error)
+# ----- THE RESULTS ARE TOO LONG AFTER . -----
+# ----- PRESSING A NUMBER BUTTON AFTER THE EQUATION IS DONE JUST ADDS ANOTHER DIGIT TO THE RESULT -----
 class EquationClass(ButtonsClass):
     def button_pressed(self):
         if theNumbers.get() == "0":
@@ -97,15 +101,42 @@ def raze_it_to_the_ground():
     theNumbers.set(0)
 
 
+# ----- FOR NOW OPENS IN MAINDISK:/ -----
+def ddm_open():
+    text_file_directory = filedialog.Open(initialdir=r"/", filetypes=(("TXT Files", "*txt"), ("ALL files", "*")))
+    with open(text_file_directory.show(), "r") as hh:
+        text = hh.read()
+        raze_it_to_the_ground()
+        theNumbers.set(text)
+        hh.close()
+
+
+# ----- FOR NOW OPENS IN MAINDISK:/ -----
+def ddm_save_as():
+    if theNumbers.get() != "0":
+        new_text_file_directory = filedialog.asksaveasfilename(initialdir=r"/", filetypes=(("TEXT Files", "*txt"),
+                                                                                           ("ALLFiles", "*")),
+                                                               defaultextension=".txt")
+        with open(new_text_file_directory, "w") as kk:
+            kk.write(theNumbers.get())
+            kk.close()
+
+def ddm_help():
+    messagebox.showinfo("Help", "This is a help tab.")
+
+def ddm_about():
+    messagebox.showinfo("About", "Created by Zygmunt Mocek.")
+
+
 # Drop down menus
 theMenu = Menu(window)
 window.config(menu=theMenu)
 
 firstDropDown = Menu(theMenu, tearoff=0)
 theMenu.add_cascade(label="File", menu=firstDropDown)
-firstDropDown.add_command(label="Open")
-firstDropDown.add_command(label="Save")
-firstDropDown.add_command(label="Save as...")
+firstDropDown.add_command(label="Open", command=ddm_open)
+firstDropDown.add_command(label="Save (WIP)")
+firstDropDown.add_command(label="Save as...", command=ddm_save_as)
 firstDropDown.add_separator()
 firstDropDown.add_command(label="Exit", command=window.quit)
 
@@ -117,8 +148,8 @@ secondDropDown.add_command(label="Clear", command=raze_it_to_the_ground)
 
 thirdDropDown = Menu(theMenu, tearoff=0)
 theMenu.add_cascade(label="Help", menu=thirdDropDown)
-thirdDropDown.add_command(label="Help")
-thirdDropDown.add_command(label="About")
+thirdDropDown.add_command(label="Help", command=ddm_help)
+thirdDropDown.add_command(label="About", command=ddm_about)
 
 # Function buttons - number buttons
 a = ButtonsClass(theFrame, 1, 0, "1")
@@ -136,7 +167,7 @@ j = ButtonsClass(theFrame, 4, 1, "0")
 k = FuncionalClass(theFrame, 1, 3, "+")
 ll = FuncionalClass(theFrame, 2, 3, "-")
 m = FuncionalClass(theFrame, 3, 3, "*")
-n = FuncionalClass(theFrame, 4, 3, "//")
+n = FuncionalClass(theFrame, 4, 3, "/")
 o = EquationClass(theFrame, 4, 2, "=")
 p = DotClass(theFrame, 4, 0, ".")
 
