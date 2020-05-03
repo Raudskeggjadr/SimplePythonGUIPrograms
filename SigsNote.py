@@ -3,6 +3,7 @@ from tkinter import *
 # GUI and it's settings
 window = Tk()
 window.configure(background="black")
+window.title("Welcome to Sig's Text Editor!")
 window.geometry("400x400+400+200")
 
 # Main frame of the program
