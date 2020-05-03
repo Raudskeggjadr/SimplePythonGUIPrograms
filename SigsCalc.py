@@ -72,6 +72,7 @@ class EquationClass(ButtonsClass):
 # GUI and it's setting
 window = Tk()
 window.configure(background="black")
+window.title("Welcome to Sig's Calculator!")
 window.geometry("400x400+400+200")
 
 # Main frame of the programm
