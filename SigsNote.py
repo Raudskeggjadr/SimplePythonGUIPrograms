@@ -11,7 +11,7 @@ theFrame.pack(fill=BOTH, expand=True)
 
 # Text field
 textField = Text(theFrame, bg="black", fg="orange")
-textField.pack()
+textField.pack(fill=BOTH, expand=True)
 
 # Drop down menus
 theMenu = Menu(window)
