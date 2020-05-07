@@ -1,10 +1,11 @@
 import os
 from tkinter import *
-from tkinter import filedialog
-from tkinter import messagebox
 
 
 # Parent Class for all the buttons
+from tkinter import filedialog, messagebox
+
+
 class ButtonsClass:
     def __init__(self, master, x, xx, xxx):
         self.x = x
@@ -72,12 +73,12 @@ class EquationClass(ButtonsClass):
 # GUI and it's setting
 window = Tk()
 window.configure(background="black")
-window.title("Welcome to Sig's Calculator!")
 window.geometry("400x400+400+200")
 
 # Main frame of the programm
 theFrame = Frame(window)
 theFrame.pack(fill=BOTH, expand=True)
+
 
 # Numbers field
 theNumbers = StringVar()
@@ -124,7 +125,7 @@ def ddm_save_as():
 
 
 def ddm_help():
-    messagebox.showinfo("Help", "This is a help tab.")
+    messagebox.showinfo("Help", "This is a help window.")
 
 
 def ddm_about():

@@ -2,7 +2,7 @@ import os
 from tkinter import *
 
 # GUI and it's settings
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 window = Tk()
 window.configure(background="black")
@@ -28,7 +28,25 @@ def open_text_file():
     with open(text_file_directory.show(), "r") as hh:
         text = hh.read()
         raze_it_to_the_ground()
-        textField.insert(0, text)
+        textField.insert("1.0", text)
+
+
+def save_text_file_as():
+    if textField.get("1.0", END) != "":
+        new_text_file_firectory = filedialog.asksaveasfilename(initialdir=os.getcwd(),
+                                                               filetypes=(("Text Files", "*txt"), ("All Files", "*")),
+                                                               defaultextension=".txt")
+        with open(new_text_file_firectory, "w") as kk:
+            kk.write(textField.get("1.0", END))
+            kk.close()
+
+
+def help_window():
+    messagebox.showinfo("Help", "This is a help window.")
+
+
+def about_window():
+    messagebox.showinfo("About", "Created by Zygmunt Mocek")
 
 
 # Drop down menus
@@ -39,7 +57,7 @@ theFirstDropDown = Menu(theMenu, tearoff=0)
 theMenu.add_cascade(label="File", menu=theFirstDropDown)
 theFirstDropDown.add_command(label="Open", command=open_text_file)
 theFirstDropDown.add_command(label="Save")
-theFirstDropDown.add_command(label="Save as...")
+theFirstDropDown.add_command(label="Save as...", command=save_text_file_as)
 theFirstDropDown.add_separator()
 theFirstDropDown.add_command(label="Exit", command=window.quit)
 
@@ -52,8 +70,8 @@ theSecondDropDown.add_command(label="Clear", command=raze_it_to_the_ground)
 
 theThirdDropDown = Menu(theMenu, tearoff=0)
 theMenu.add_cascade(label="Help", menu=theThirdDropDown)
-theThirdDropDown.add_command(label="Help")
-theThirdDropDown.add_command(label="About")
+theThirdDropDown.add_command(label="Help", command=help_window)
+theThirdDropDown.add_command(label="About", command=about_window)
 
 # Keeps the program running
 window.mainloop()
