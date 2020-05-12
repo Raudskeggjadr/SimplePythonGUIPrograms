@@ -48,6 +48,14 @@ def help_window():
 def about_window():
     messagebox.showinfo("About", "Created by Zygmunt Mocek")
 
+def copy_to_clipboard():
+    window.clipboard_clear()
+    window.clipboard_append(textField.get(1.0, END))
+    print(window.clipboard_get())
+
+def paste_from_clipboard():
+    textField.insert(END, window.clipboard_get())
+
 
 # Drop down menus
 theMenu = Menu(window)
@@ -56,16 +64,16 @@ window.config(menu=theMenu)
 theFirstDropDown = Menu(theMenu, tearoff=0)
 theMenu.add_cascade(label="File", menu=theFirstDropDown)
 theFirstDropDown.add_command(label="Open", command=open_text_file)
-theFirstDropDown.add_command(label="Save")
+theFirstDropDown.add_command(label="Save (WIP)")
 theFirstDropDown.add_command(label="Save as...", command=save_text_file_as)
 theFirstDropDown.add_separator()
 theFirstDropDown.add_command(label="Exit", command=window.quit)
 
 theSecondDropDown = Menu(theMenu, tearoff=0)
 theMenu.add_cascade(label="Edit", menu=theSecondDropDown)
-theSecondDropDown.add_command(label="Copy")
-theSecondDropDown.add_command(label="Paste")
-theSecondDropDown.add_command(label="Search")
+theSecondDropDown.add_command(label="Copy", command=copy_to_clipboard)
+theSecondDropDown.add_command(label="Paste", command=paste_from_clipboard)
+theSecondDropDown.add_command(label="Search (WIP)")
 theSecondDropDown.add_command(label="Clear", command=raze_it_to_the_ground)
 
 theThirdDropDown = Menu(theMenu, tearoff=0)
